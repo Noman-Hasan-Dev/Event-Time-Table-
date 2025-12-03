@@ -1,0 +1,454 @@
+.app-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #D4C4B0;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+}
+
+.header {
+  background-color: #8B7355;
+  padding: 12px 20px;
+  color: white;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: normal;
+}
+
+/* Top Tabs */
+.top-tabs {
+  display: flex;
+  background-color: white;
+  border-bottom: 2px solid #666;
+  position: relative;
+}
+
+.time-label {
+  width: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-right: 2px solid #666;
+  background-color: #E8E0D5;
+  flex-shrink: 0;
+}
+
+.time-label .arrow {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.time-label .scroll-text {
+  font-size: 10px;
+  writing-mode: horizontal-tb;
+  margin-top: 4px;
+}
+
+.days-container {
+  display: flex;
+  flex: 1;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.days-container::-webkit-scrollbar {
+  display: none;
+}
+
+.day-tab {
+  min-width: 120px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid #ccc;
+  cursor: pointer;
+  background-color: white;
+  transition: background-color 0.2s;
+}
+
+.day-tab:hover {
+  background-color: #f5f5f5;
+}
+
+.day-tab.active {
+  background-color: #E8E0D5;
+}
+
+.day-name {
+  font-size: 11px;
+  color: #666;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.day-date {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Arrow Indicators */
+.arrow-indicator {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  background-color: rgba(232, 224, 213, 0.9);
+  pointer-events: none;
+}
+
+.arrow-indicator.left {
+  left: 80px;
+  top: 60px;
+  bottom: 40px;
+  width: 30px;
+  flex-direction: column;
+  border-right: 2px solid #666;
+}
+
+.arrow-indicator.right {
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+  border-left: 2px solid #666;
+}
+
+.arrow-indicator.bottom {
+  bottom: 0;
+  left: 110px;
+  right: 0;
+  height: 40px;
+  border-top: 2px solid #666;
+}
+
+.arrow {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.scroll-text {
+  font-size: 10px;
+  color: #666;
+  margin-top: 4px;
+}
+
+.scroll-text.vertical {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  margin: 8px 0;
+}
+
+/* Time Column */
+.time-column {
+  width: 80px;
+  background-color: #E8E0D5;
+  border-right: 2px solid #666;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  z-index: 5;
+  scrollbar-width: none;
+  flex-shrink: 0;
+}
+
+.time-column::-webkit-scrollbar {
+  display: none;
+}
+
+.time-slot {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: #333;
+  border-bottom: 1px solid #ccc;
+  font-weight: 500;
+}
+
+/* Content Wrapper */
+.content-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin-left: 30px;
+  margin-bottom: 40px;
+}
+
+/* Venue Bar */
+.venue-bar {
+  display: flex;
+  background-color: #B8A896;
+  border-bottom: 2px solid #666;
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.venue-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.venue-cell {
+  min-width: 200px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid #666;
+  text-align: center;
+}
+
+.venue-name {
+  font-weight: bold;
+  font-size: 13px;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.venue-date {
+  font-size: 10px;
+  color: #555;
+  white-space: pre-line;
+}
+
+/* Events Area */
+.events-area {
+  flex: 1;
+  display: flex;
+  overflow: auto;
+  background-color: #D4C4B0;
+}
+
+.venue-column {
+  min-width: 200px;
+  position: relative;
+  border-right: 1px solid #999;
+  flex-shrink: 0;
+}
+
+.time-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.time-line {
+  height: 60px;
+  border-bottom: 1px solid #B8A896;
+}
+
+.events-container {
+  position: relative;
+  min-height: 5760px;
+  padding: 0 4px;
+}
+
+/* Event Card */
+.event-card {
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  border-radius: 4px;
+  padding: 8px;
+  color: white;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  transition: transform 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+
+.event-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+
+.event-title {
+  font-weight: bold;
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.event-time {
+  font-size: 10px;
+  opacity: 0.9;
+}
+
+.delete-btn {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: rgba(0,0,0,0.3);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 16px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-btn:hover {
+  background: rgba(0,0,0,0.5);
+}
+
+/* FAB Button */
+.fab-button {
+  position: fixed;
+  bottom: 60px;
+  right: 30px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: #8B7355;
+  color: white;
+  border: none;
+  font-size: 32px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  z-index: 100;
+  transition: transform 0.2s;
+}
+
+.fab-button:hover {
+  transform: scale(1.1);
+  background-color: #6F5D47;
+}
+
+/* Dialog */
+.dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.dialog-content {
+  background-color: white;
+  border-radius: 8px;
+  padding: 24px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+.dialog-content h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 20px;
+}
+
+.form-field {
+  margin-bottom: 16px;
+}
+
+.form-field label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #555;
+}
+
+.form-field input,
+.form-field select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.btn-cancel,
+.btn-save {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-cancel {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+.btn-cancel:hover {
+  background-color: #d0d0d0;
+}
+
+.btn-save {
+  background-color: #8B7355;
+  color: white;
+}
+
+.btn-save:hover {
+  background-color: #6F5D47;
+}
+
+/* Scrollbar Styling */
+.events-area::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.events-area::-webkit-scrollbar-track {
+  background: #C4B5A0;
+}
+
+.events-area::-webkit-scrollbar-thumb {
+  background: #8B7355;
+  border-radius: 5px;
+}
+
+.events-area::-webkit-scrollbar-thumb:hover {
+  background: #6F5D47;
+}

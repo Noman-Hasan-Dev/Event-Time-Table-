@@ -1,0 +1,127 @@
+<div class="app-container">
+  <!-- Header -->
+  <div class="header">
+    <h1>Event Time Table</h1>
+  </div>
+
+  <!-- Top Tab Bar with Days -->
+  <div class="top-tabs">
+    <div class="time-label">
+      <div class="arrow up">↑</div>
+      <div class="scroll-text">Scroll</div>
+    </div>
+    <div class="days-container">
+      <div 
+        *ngFor="let day of daysOfWeek; let i = index"
+        class="day-tab"
+        [class.active]="selectedDay === i"
+        (click)="onTabChange(i)">
+        <div class="day-name">{{ day.name }}</div>
+        <div class="day-date">{{ day.date }}</div>
+      </div>
+    </div>
+    <div class="arrow-indicator right">
+      <div class="arrow">→</div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Left Arrow Indicator -->
+    <div class="arrow-indicator left">
+      <div class="arrow">←</div>
+      <div class="scroll-text vertical">Scroll</div>
+    </div>
+
+    <!-- Time Column (Fixed) -->
+    <div class="time-column" #timeColumn>
+      <div class="time-slot" *ngFor="let time of timeSlots">
+        {{ time }}
+      </div>
+    </div>
+
+    <!-- Scrollable Content Area -->
+    <div class="content-wrapper">
+      <!-- Sticky Venue Bar -->
+      <div class="venue-bar" #venueBar>
+        <div 
+          class="venue-cell" 
+          *ngFor="let venue of venues"
+          [style.width.px]="venueWidth">
+          <div class="venue-name">{{ venue.name }}</div>
+          <div class="venue-date">{{ venue.date }}</div>
+        </div>
+      </div>
+
+      <!-- Events Area -->
+      <div class="events-area" #contentArea>
+        <div class="venue-column" *ngFor="let venue of venues" [style.width.px]="venueWidth">
+          <!-- Time Grid Background -->
+          <div class="time-grid">
+            <div class="time-line" *ngFor="let time of timeSlots"></div>
+          </div>
+
+          <!-- Events -->
+          <div class="events-container">
+            <div 
+              *ngFor="let event of getEventsForVenue(venue.name, selectedDay)"
+              class="event-card"
+              [style.top.px]="calculateEventTop(event.startTime)"
+              [style.height.px]="calculateEventHeight(event.startTime, event.endTime)"
+              [style.backgroundColor]="event.color"
+              (click)="openEditDialog(event)">
+              <div class="event-title">{{ event.title }}</div>
+              <div class="event-time">{{ event.startTime }}-{{ event.endTime }}</div>
+              <button class="delete-btn" (click)="deleteEvent(event.id, $event)">×</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Arrow Indicator -->
+    <div class="arrow-indicator bottom">
+      <div class="arrow">↓</div>
+      <div class="scroll-text">Scroll</div>
+    </div>
+  </div>
+
+  <!-- Add Button -->
+  <button class="fab-button" (click)="openAddDialog()">+</button>
+
+  <!-- Dialog -->
+  <div class="dialog-overlay" *ngIf="showDialog" (click)="closeDialog()">
+    <div class="dialog-content" (click)="$event.stopPropagation()">
+      <h2>{{ editingEventId ? 'Edit Event' : 'Add Event' }}</h2>
+      
+      <div class="form-field">
+        <label>Event Title</label>
+        <input type="text" [(ngModel)]="formData.title" placeholder="Enter event title">
+      </div>
+
+      <div class="form-field">
+        <label>Venue</label>
+        <select [(ngModel)]="formData.venue">
+          <option *ngFor="let venue of venues" [value]="venue.name">
+            {{ venue.name }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-field">
+        <label>Start Time</label>
+        <input type="time" [(ngModel)]="formData.startTime">
+      </div>
+
+      <div class="form-field">
+        <label>End Time</label>
+        <input type="time" [(ngModel)]="formData.endTime">
+      </div>
+
+      <div class="dialog-actions">
+        <button class="btn-cancel" (click)="closeDialog()">Cancel</button>
+        <button class="btn-save" (click)="saveEvent()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
