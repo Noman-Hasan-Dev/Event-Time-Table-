@@ -84,7 +84,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   private getVenues(): Venue[] {
-    const baseDate = '2024-12-01';
+    const baseDate = '2025-12-03';
     return [
       { name: 'Venue1', date: `Date: ${baseDate}` },
       { name: 'Venue2', date: `Date: ${baseDate}` },
